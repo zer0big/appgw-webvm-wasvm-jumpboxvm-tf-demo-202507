@@ -4,7 +4,7 @@
 variable "resource_group_name" {
   description = "생성할 리소스 그룹의 이름입니다."
   type        = string
-  default     = "rg-tdg-appgw-3tier-demo"
+  default     = "rg-gtm-ent-metafree"
 }
 
 variable "location" {
@@ -68,7 +68,7 @@ variable "jumpbox_vm_size" {
 variable "vm_admin_username" {
   description = "가상 머신에 생성할 관리자 계정 이름"
   type        = string
-  default     = "azureuser"
+  default     = "metaadmin"
 }
 
 variable "vm_admin_password" {

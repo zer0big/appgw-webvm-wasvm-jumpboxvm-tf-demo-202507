@@ -21,7 +21,7 @@ resource "azurerm_resource_group" "rg" {
 
 # --- 가상 네트워크 (VNet) ---
 resource "azurerm_virtual_network" "vnet" {
-  name                = "vnet-tdg-3tier-rocky"
+  name                = "vnet-gtm-ent-metafree"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   address_space       = ["10.0.0.0/16"]
@@ -269,7 +269,7 @@ resource "azurerm_subnet_network_security_group_association" "jumpbox_subnet_nsg
 
 # --- Application Gateway (WAF) ---
 resource "azurerm_application_gateway" "appgw" {
-  name                = "appgw-awf-apache"
+  name                = "appgw-gtm-ent-metafree"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
 
@@ -296,7 +296,7 @@ resource "azurerm_application_gateway" "appgw" {
 
   # 백엔드 풀: 이제 web_rocky_nic의 private_ip_address를 참조
   backend_address_pool {
-    name         = "backend-pool-apache"
+    name         = "backend-pool-http"
     ip_addresses = [azurerm_network_interface.web_rocky_nic.private_ip_address]
   }
 
@@ -320,7 +320,7 @@ resource "azurerm_application_gateway" "appgw" {
     name                       = "routing-rule-http"
     rule_type                  = "Basic"
     http_listener_name         = "http-listener"
-    backend_address_pool_name  = "backend-pool-apache"
+    backend_address_pool_name  = "backend-pool-http"
     backend_http_settings_name = "backend-http-setting"
     priority                   = 100
   }
@@ -457,6 +457,7 @@ resource "azurerm_network_interface_security_group_association" "jumpbox_nic_nsg
 }
 
 # --- Cloud-init 스크립트 (Rocky Linux용으로 수정 필요) ---
+
 data "cloudinit_config" "apache_cloud_init" {
   gzip          = true
   base64_encode = true
