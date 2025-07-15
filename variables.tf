@@ -2,7 +2,7 @@
 # 일반 설정 (General Settings)
 # -----------------------------------------------------------------------------
 variable "resource_group_name" {
-  description = "생성할 리소스 그룹의 이름입니다."
+  description = "생성할 리소스 그룹의 이름"
   type        = string
   default     = "rg-gtm-ent-metafree"
 }
@@ -23,7 +23,7 @@ variable "web_subnet_prefix" {
 }
 
 variable "app_subnet_prefix" {
-  description = "App/DB Tier (Tomcat) 서브넷의 주소 대역"
+  description = "App/DB Tier 서브넷의 주소 대역"
   type        = string
   default     = "10.0.4.0/24"
 }
@@ -75,7 +75,7 @@ variable "vm_admin_password" {
   description = "가상 머신에 생성할 관리자 계정의 암호 (Windows VM에 필수)"
   type        = string
   sensitive   = true # 민감 정보 출력 숨김
-  default     = "ChangeMe123!" # 실제 환경 하드코딩 주의!!!
+  default     = "ChangeMe123!" # [보안 권장] PROD 환경에서는 하드코딩 하지 말 것!!!
 }
 
 variable "ssh_public_key_path" {
