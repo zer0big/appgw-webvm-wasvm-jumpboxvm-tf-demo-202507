@@ -386,7 +386,8 @@ resource "azurerm_application_gateway" "appgw" {
     port                  = 80
     protocol              = "Http"
     request_timeout       = 60
-  }
+    probe_name            = "http-probe-for-web"
+}
 
   http_listener {
     name                           = "http-listener"
@@ -409,5 +410,15 @@ resource "azurerm_application_gateway" "appgw" {
     firewall_mode    = var.appgw_waf_firewall_mode
     rule_set_type    = "OWASP"
     rule_set_version = "3.2"
+  }
+
+  probe {
+    name                = "http-probe-for-web"
+    protocol            = "Http"
+    host                = "127.0.0.1"
+    path                = "/"
+    interval            = 30  # 30초마다 상태 확인
+    timeout             = 30  # 30초 이내에 응답이 없으면 실패
+    unhealthy_threshold = 3   # 3번 연속 실패하면 비정상(Unhealthy)으로 간주
   }
 }
