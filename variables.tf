@@ -4,7 +4,7 @@
 variable "resource_group_name" {
   description = "생성할 리소스 그룹의 이름"
   type        = string
-  default     = "rg-gtm-ent-metafree"
+  default     = "rg-appgw-3tier-archi-demo"
 }
 
 variable "location" {
@@ -55,8 +55,8 @@ variable "web_vm_size" {
 variable "app_db_vm_size" {
   description = "배포할 가상 머신의 크기"
   type        = string
-  default     = "Standard_D32s_v5"
-#  default     = "Standard_D4s_v5"
+#  default     = "Standard_D32s_v5"
+  default     = "Standard_D4s_v5"
 }
 
 variable "jumpbox_vm_size" {
@@ -68,14 +68,14 @@ variable "jumpbox_vm_size" {
 variable "vm_admin_username" {
   description = "가상 머신에 생성할 관리자 계정 이름"
   type        = string
-  default     = "metaadmin"
+  default     = "prjadmin"
 }
 
 variable "vm_admin_password" {
   description = "가상 머신에 생성할 관리자 계정의 암호 (Windows VM에 필수)"
   type        = string
   sensitive   = true # 민감 정보 출력 숨김
-  default     = "ChangeMe123!" # [보안 권장] PROD 환경에서는 하드코딩 하지 말 것!!!
+  default     = "1qazxsw2#EDC " # [보안 권장] PROD 환경에서는 하드코딩 하지 말 것!!!
 }
 
 variable "ssh_public_key_path" {

@@ -143,7 +143,7 @@ resource "azurerm_network_security_group" "jumpbox_nsg" {
     protocol                   = "Tcp"
     source_port_range          = "*"
     destination_port_range     = "3389"
-    # [보안 권장] 운영 환경에서는 "Internet" 대신 특정 관리자 IP로 제한해야 합니다.
+    # [보안 권장] 운영 환경에서는 "Internet" 대신 특정 관리자 IP로 제한 필요!!!
     source_address_prefix      = "Internet"
     destination_address_prefix = "*"
   }
@@ -216,7 +216,6 @@ resource "azurerm_network_interface" "jumpbox_nic" {
   }
 }
 
-/*
 # --- Cloud-init 설정 정의 ---
 # WEB VM용 cloud-init: net-tools만 설치
 data "cloudinit_config" "web_vm_init" {
@@ -246,7 +245,6 @@ data "cloudinit_config" "app_vm_init" {
     content      = local.cloud_init_script_jdk_11
   }
 }
-*/
 
 # --- 가상 머신 (VMs) ---
 resource "azurerm_linux_virtual_machine" "web_vm" {
@@ -282,7 +280,7 @@ resource "azurerm_linux_virtual_machine" "web_vm" {
     product   = "rockylinux-x86_64"
   }
 
-#  custom_data = data.cloudinit_config.web_vm_init.rendered
+  custom_data = data.cloudinit_config.web_vm_init.rendered
 }
 
 resource "azurerm_linux_virtual_machine" "app_db_vm" {
@@ -318,7 +316,7 @@ resource "azurerm_linux_virtual_machine" "app_db_vm" {
     product   = "rockylinux-x86_64"
   }
 
-#  custom_data = data.cloudinit_config.app_vm_init.rendered
+  custom_data = data.cloudinit_config.app_vm_init.rendered
 }
 
 resource "azurerm_windows_virtual_machine" "jumpbox_vm" {
@@ -417,8 +415,8 @@ resource "azurerm_application_gateway" "appgw" {
     protocol            = "Http"
     host                = "127.0.0.1"
     path                = "/"
-    interval            = 30  # 30초마다 상태 확인
-    timeout             = 30  # 30초 이내에 응답이 없으면 실패
-    unhealthy_threshold = 3   # 3번 연속 실패하면 비정상(Unhealthy)으로 간주
+    interval            = 30 
+    timeout             = 30  
+    unhealthy_threshold = 3  
   }
 }
