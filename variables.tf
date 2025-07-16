@@ -75,7 +75,7 @@ variable "vm_admin_password" {
   description = "가상 머신에 생성할 관리자 계정의 암호 (Windows VM에 필수)"
   type        = string
   sensitive   = true # 민감 정보 출력 숨김
-  default     = "1qazxsw2#EDC " # [보안 권장] PROD 환경에서는 하드코딩 하지 말 것!!!
+  default     = " " # [보안 권장] PROD 환경에서는 하드코딩 하지 말 것!!!
 }
 
 variable "ssh_public_key_path" {
